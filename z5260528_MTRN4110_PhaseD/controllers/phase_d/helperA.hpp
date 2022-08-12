@@ -13,7 +13,7 @@ int mod(int a, int b)
 
 bool checkWall(double distanceValue)
 {
-    if (distanceValue < 600)
+    if (distanceValue < 850)
     {
         return true;
     }

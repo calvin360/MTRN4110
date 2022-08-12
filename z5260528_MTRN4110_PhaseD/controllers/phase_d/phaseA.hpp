@@ -14,9 +14,12 @@
 
 constexpr double maxMotorSpeed = 6.28;  // rad/s
 constexpr double wheel_radius = 0.0205; // m
+const double oneSquare = 2.62586;
+const double quarter = 0.711175;
 constexpr int num_distance_sensors = 3;
 constexpr double obstacleDistance = 90.0;
-const std::string MOTION_PLAN_FILE_NAME = "../../PathPlan.txt";
+// const std::string MOTION_PLAN_FILE_NAME = "../../PathPlan.txt";
+const std::string MOTION_PLAN_FILE_NAME = "../../MotionPlan.txt";
 const std::string MOTION_EXECUTION_FILE_NAME = "../../MotionExecution.csv";
 const int TIME_STEP = 64;
 
@@ -125,8 +128,8 @@ auto executeMove(char command, double leftMotor, double rightMotor, char bearing
     // forward command
     if (command == 'F')
     {
-        leftMotor = leftMotor + 2.62586 * M_PI;
-        rightMotor = rightMotor + 2.62586 * M_PI;
+        leftMotor = leftMotor + oneSquare * M_PI;
+        rightMotor = rightMotor + oneSquare * M_PI;
         switch (bearing)
         {
         case 'N':
@@ -146,15 +149,15 @@ auto executeMove(char command, double leftMotor, double rightMotor, char bearing
     // left command
     else if (command == 'L')
     {
-        leftMotor = leftMotor - 0.711175 * M_PI;
-        rightMotor = rightMotor + 0.711175 * M_PI;
+        leftMotor = leftMotor - quarter * M_PI;
+        rightMotor = rightMotor + quarter * M_PI;
         bearingINT = mod((bearingINT - 1), 4);
     }
     // right command
     else if (command == 'R')
     {
-        leftMotor = leftMotor + 0.711175 * M_PI;
-        rightMotor = rightMotor - 0.711175 * M_PI;
+        leftMotor = leftMotor + quarter * M_PI;
+        rightMotor = rightMotor - quarter * M_PI;
         bearingINT = mod((bearingINT + 1), 4);
     }
     switch (bearingINT)
@@ -189,7 +192,6 @@ void runA()
     myRobot myRobot;
     while (myRobot.step(TIME_STEP) != -1)
     {
-        // std::cout << robot.getTime() << std::endl;
         // Get average values for distance sensors
         int aveLeft = 0;
         int aveRight = 0;
@@ -208,6 +210,7 @@ void runA()
         aveLeft = aveLeft / sum;
         aveFront = aveFront / sum;
         aveRight = aveRight / sum;
+        // std::cout << "left: " << aveLeft << "front: " << aveFront << "right: " << aveRight << std::endl;
         // write to file
         writeToFile(myRobot.stepC, myRobot.row, myRobot.col, myRobot.heading, checkWall(aveLeft), checkWall(aveFront), checkWall(aveRight));
 
@@ -215,8 +218,8 @@ void runA()
         {
             auto motorPos = executeMove(myRobot.moveCommands[myRobot.moveCounter], myRobot.leftPos, myRobot.rightPos, myRobot.heading, myRobot.row, myRobot.col);
 
-            myRobot.leftMotor->setVelocity(0.15 * maxMotorSpeed);
-            myRobot.rightMotor->setVelocity(0.15 * maxMotorSpeed);
+            myRobot.leftMotor->setVelocity(0.17 * maxMotorSpeed);
+            myRobot.rightMotor->setVelocity(0.17 * maxMotorSpeed);
             myRobot.leftMotor->setPosition(motorPos.leftMotor);
             myRobot.rightMotor->setPosition(motorPos.rightMotor);
 
