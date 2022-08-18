@@ -22,162 +22,14 @@
 #include <limits>
 #include <cstring>
 
+#include "helperB.hpp"
+
 //#define NV 45
 #define ROWS 5
 #define COLS 9
 const std::string MAP_FILE_NAME = "../../Map.txt";
 const std::string PATH_PLAN_FILE_NAME = "../../PathPlan.txt";
 const std::string OUTPUT_FILE_NAME = "../../Output.txt";
-
-// This is the main program of your controller.
-// It creates an instance of your Robot instance, launches its
-// function(s) and destroys it at the end of the execution.
-// Note that only one instance of Robot should be created in
-// a controller program.
-// The arguments of the main function can be specified by the
-// "controllerArgs" field of the Robot node
-
-void addEdge(std::vector<int> adj[], int u, int v)
-{
-    adj[u].push_back(v);
-    adj[v].push_back(u);
-}
-
-int getRow(int nV)
-{
-    int row = 0;
-    if (nV < 9)
-    {
-        row = 0;
-    }
-    else if (nV < 18)
-    {
-        row = 1;
-    }
-    else if (nV < 27)
-    {
-        row = 2;
-    }
-    else if (nV < 36)
-    {
-        row = 3;
-    }
-    else
-    {
-        row = 4;
-    }
-
-    return row;
-}
-
-int getCol(int nV)
-{
-    int col = 0;
-
-    col = nV % 9;
-
-    return col;
-}
-
-bool checkStart(char input)
-{
-    switch (input)
-    {
-    case '^':
-        return true;
-    case '>':
-        return true;
-    case 'v':
-        return true;
-    case '<':
-        return true;
-    default:
-        return false;
-    }
-}
-
-int getStartpos(char input)
-{
-    switch (input)
-    {
-    case '^':
-        return 0;
-    case '>':
-        return 1;
-    case 'v':
-        return 2;
-    case '<':
-        return 3;
-    default:
-        return -1;
-    }
-}
-
-std::string getStartstring(int input)
-{
-    switch (input)
-    {
-    case 0:
-        return "N";
-    case 1:
-        return "E";
-    case 2:
-        return "S";
-    case 3:
-        return "W";
-    default:
-        return "FAILED TO GET STARTING DIRECTION PLEASE RESTART";
-    }
-}
-
-int getDirection(int difference)
-{
-    switch (difference)
-    {
-    case -9: //^
-        return 0;
-    case 1: //>
-        return 1;
-    case 9: // v
-        return 2;
-    case -1: // <
-        return 3;
-    default:
-        return -1;
-    }
-}
-
-std::string getPP(int curr_heading, int next_heading)
-{
-    switch (curr_heading)
-    {
-    case 0:
-        if (next_heading == 3)
-            return "L";
-        if (next_heading == 1)
-            return "R";
-        break;
-    case 1:
-        if (next_heading == 0)
-            return "L";
-        if (next_heading == 2)
-            return "R";
-        break;
-    case 2:
-        if (next_heading == 1)
-            return "L";
-        if (next_heading == 3)
-            return "R";
-        break;
-    case 3:
-        if (next_heading == 2)
-            return "L";
-        if (next_heading == 0)
-            return "R";
-        break;
-    }
-    return "LL";
-}
 
 /***************************************************************************************************
  * The following function, which uses BFS to find all shortest paths, was adapted from:
@@ -203,7 +55,6 @@ void find_paths(std::vector<std::vector<int>> &paths,
     // of the given vertex
     for (int par : parent[u])
     {
-
         // Insert the current
         // vertex in path
         path.push_back(u);
@@ -255,7 +106,6 @@ void bfs(std::vector<int> adj[],
             }
             else if (dist[v] == dist[u] + 1)
             {
-
                 // Another candidate parent for
                 // shortes path found
                 parent[v].push_back(u);
@@ -278,7 +128,6 @@ void print_paths(std::vector<int> adj[], int n, int start, int end, std::string 
     // Function call to find_paths
     find_paths(paths, path, parent, n, end);
     int totalPaths = paths.size();
-    // int pathLength = paths[0].size() - 2;
     int nV = 0;
 
     std::ofstream file2(OUTPUT_FILE_NAME, std::ios::app);
@@ -286,8 +135,8 @@ void print_paths(std::vector<int> adj[], int n, int start, int end, std::string 
     {
         std::cerr << "Cannot write to file";
     }
-    std::cout << "[z5257127_MTRN4110_PhaseB] Finding shortest paths..." << std::endl;
-    file2 << "[z5257127_MTRN4110_PhaseB] Finding shortest paths..."
+    std::cout << "[RoboBot] Finding shortest paths..." << std::endl;
+    file2 << "[RoboBot] Finding shortest paths..."
           << "\n";
     int nPaths = 1;
     int turns;
@@ -308,18 +157,18 @@ void print_paths(std::vector<int> adj[], int n, int start, int end, std::string 
         // reverse(v.begin(), v.end());
         nV = 0;
         // Print node for the current path
-        std::cout << "[z5257127_MTRN4110_PhaseB] Path - " << nPaths << ":" << std::endl;
-        file2 << "[z5257127_MTRN4110_PhaseB] Path - " << nPaths << ":"
+        std::cout << "[RoboBot] Path - " << nPaths << ":" << std::endl;
+        file2 << "[RoboBot] Path - " << nPaths << ":"
               << "\n";
 
-        std::cout << "[z5257127_MTRN4110_PhaseB]  --- --- --- --- --- --- --- --- --- " << std::endl;
-        file2 << "[z5257127_MTRN4110_PhaseB]  --- --- --- --- --- --- --- --- --- "
+        std::cout << "[RoboBot]  --- --- --- --- --- --- --- --- --- " << std::endl;
+        file2 << "[RoboBot]  --- --- --- --- --- --- --- --- --- "
               << "\n";
 
         for (int j = 0; j < 9; j++)
         {
-            std::cout << "[z5257127_MTRN4110_PhaseB] ";
-            file2 << "[z5257127_MTRN4110_PhaseB] ";
+            std::cout << "[RoboBot] ";
+            file2 << "[RoboBot] ";
             for (int c = 0; c < 37; c++)
             {
                 if (c % 2 == 0 && c != 0 && c % 4 != 0 && j % 2 == 0)
@@ -351,8 +200,8 @@ void print_paths(std::vector<int> adj[], int n, int start, int end, std::string 
             file2 << "\n";
         }
 
-        std::cout << "[z5257127_MTRN4110_PhaseB]  --- --- --- --- --- --- --- --- --- " << std::endl;
-        file2 << "[z5257127_MTRN4110_PhaseB]  --- --- --- --- --- --- --- --- --- "
+        std::cout << "[RoboBot]  --- --- --- --- --- --- --- --- --- " << std::endl;
+        file2 << "[RoboBot]  --- --- --- --- --- --- --- --- --- "
               << "\n";
         turns = 0;
         temp = start;
@@ -391,23 +240,23 @@ void print_paths(std::vector<int> adj[], int n, int start, int end, std::string 
         std::cout << std::endl;
         nPaths++;
     }
-    std::cout << "[z5257127_MTRN4110_PhaseB] " << totalPaths << " shortest paths found!" << std::endl;
-    file2 << "[z5257127_MTRN4110_PhaseB] " << totalPaths << " shortest paths found!"
+    std::cout << "[RoboBot] " << totalPaths << " shortest paths found!" << std::endl;
+    file2 << "[RoboBot] " << totalPaths << " shortest paths found!"
           << "\n";
 
-    std::cout << "[z5257127_MTRN4110_PhaseB] Finding shortest path with least turns..." << std::endl;
-    file2 << "[z5257127_MTRN4110_PhaseB] Finding shortest path with least turns..."
+    std::cout << "[RoboBot] Finding shortest path with least turns..." << std::endl;
+    file2 << "[RoboBot] Finding shortest path with least turns..."
           << "\n";
     nV = 0;
     auto v = paths[pathOfleastTurns];
-    std::cout << "[z5257127_MTRN4110_PhaseB]  --- --- --- --- --- --- --- --- --- " << std::endl;
-    file2 << "[z5257127_MTRN4110_PhaseB]  --- --- --- --- --- --- --- --- --- "
+    std::cout << "[RoboBot]  --- --- --- --- --- --- --- --- --- " << std::endl;
+    file2 << "[RoboBot]  --- --- --- --- --- --- --- --- --- "
           << "\n";
 
     for (int j = 0; j < 9; j++)
     {
-        std::cout << "[z5257127_MTRN4110_PhaseB] ";
-        file2 << "[z5257127_MTRN4110_PhaseB] ";
+        std::cout << "[RoboBot] ";
+        file2 << "[RoboBot] ";
         for (int c = 0; c < 37; c++)
         {
             if (c % 2 == 0 && c != 0 && c % 4 != 0 && j % 2 == 0)
@@ -451,19 +300,19 @@ void print_paths(std::vector<int> adj[], int n, int start, int end, std::string 
         pathPlan = pathPlan + "F";
     }
 
-    std::cout << "[z5257127_MTRN4110_PhaseB]  --- --- --- --- --- --- --- --- --- " << std::endl;
-    file2 << "[z5257127_MTRN4110_PhaseB]  --- --- --- --- --- --- --- --- --- "
+    std::cout << "[RoboBot]  --- --- --- --- --- --- --- --- --- " << std::endl;
+    file2 << "[RoboBot]  --- --- --- --- --- --- --- --- --- "
           << "\n";
-    std::cout << "[z5257127_MTRN4110_PhaseB] Shortest path with least turns found!" << std::endl;
-    file2 << "[z5257127_MTRN4110_PhaseB] Shortest path with least turns found!"
+    std::cout << "[RoboBot] Shortest path with least turns found!" << std::endl;
+    file2 << "[RoboBot] Shortest path with least turns found!"
           << "\n";
-    std::cout << "[z5257127_MTRN4110_PhaseB] Path Plan (" << pathPlan.length() << " steps): " << startCoords << pathPlan << std::endl;
-    file2 << "[z5257127_MTRN4110_PhaseB] Path Plan (" << pathPlan.length() << " steps): " << startCoords << pathPlan << "\n";
-    std::cout << "[z5257127_MTRN4110_PhaseB] Writing path plan to " << PATH_PLAN_FILE_NAME << "..." << std::endl;
-    file2 << "[z5257127_MTRN4110_PhaseB] Writing path plan to " << PATH_PLAN_FILE_NAME << "..."
+    std::cout << "[RoboBot] Path Plan (" << pathPlan.length() << " steps): " << startCoords << pathPlan << std::endl;
+    file2 << "[RoboBot] Path Plan (" << pathPlan.length() << " steps): " << startCoords << pathPlan << "\n";
+    std::cout << "[RoboBot] Writing path plan to " << PATH_PLAN_FILE_NAME << "..." << std::endl;
+    file2 << "[RoboBot] Writing path plan to " << PATH_PLAN_FILE_NAME << "..."
           << "\n";
-    std::cout << "[z5257127_MTRN4110_PhaseB] Path plan written to " << PATH_PLAN_FILE_NAME << "!" << std::endl;
-    file2 << "[z5257127_MTRN4110_PhaseB] Path plan written to " << PATH_PLAN_FILE_NAME << "!"
+    std::cout << "[RoboBot] Path plan written to " << PATH_PLAN_FILE_NAME << "!" << std::endl;
+    file2 << "[RoboBot] Path plan written to " << PATH_PLAN_FILE_NAME << "!"
           << "\n";
     file2.close();
 
@@ -487,7 +336,6 @@ void runB()
     std::vector<int> adj[n];
     int src = 0;
     int dest = 22;
-
     int nV = 0;
     int nV_2 = 0;
     std::string Map;
@@ -504,23 +352,20 @@ void runB()
         {
             std::cerr << "Cannot write to file";
         }
-        std::cout << "[z5257127_MTRN4110_PhaseB] Reading in map from " << MAP_FILE_NAME << "..." << std::endl;
-        file2 << "[z5257127_MTRN4110_PhaseB] Reading in map from " << MAP_FILE_NAME << "..."
+        std::cout << "[RoboBot] Reading in map from " << MAP_FILE_NAME << "..." << std::endl;
+        file2 << "[RoboBot] Reading in map from " << MAP_FILE_NAME << "..."
               << "\n";
         while (std::getline(file, Map))
         {
-            //::cout << nV << "  "<< nV_2 <<std::endl;
-
             // Output the text from the file
-            std::cout << "[z5257127_MTRN4110_PhaseB] " << Map << std::endl;
-            file2 << "[z5257127_MTRN4110_PhaseB] " << Map << "\n";
+            std::cout << "[RoboBot] " << Map << std::endl;
+            file2 << "[RoboBot] " << Map << "\n";
             if (row != 0 && row != 10)
             {
                 saveLine[row - 1] = Map;
             }
             if (row % 2 != 0)
             {
-                // std::cout << row <<std::endl;
                 for (std::size_t j = 0; j < Map.length(); j++)
                 {
                     if (j % 4 == 0 && j != 0)
@@ -556,23 +401,10 @@ void runB()
                     }
                 }
             }
-            /* else if(row != 0 && row != 10) {
-               for (std::size_t j = 0; j < Map.length(); j++) {
-
-                 if (j % 4 == 0 && j != 0 ) {
-                   if(Map[j-1] != '-') {
-                     addEdge(adj,nV_2,nV_2 + 9);
-                      std::cout << "("<< nV_2 << "," << nV_2 + 9<< ")";
-                     j = j + 3;
-                   }
-                    nV_2++;
-                  }
-               }
-             }  */
             row++;
         }
-        std::cout << "[z5257127_MTRN4110_PhaseB] Map read in!" << std::endl;
-        file2 << "[z5257127_MTRN4110_PhaseB] Map read in!"
+        std::cout << "[RoboBot] Map read in!" << std::endl;
+        file2 << "[RoboBot] Map read in!"
               << "\n";
         file.close();
         file2.close();
