@@ -1,0 +1,11 @@
+1) Make sure that the all the required dependencies match requirements.txt
+2) Compile the phase_d controller using webots and make sure that the phase_d controller is selected
+3) Run phaseD_driver.py using your python terminal using python ./phaseD_driver.py
+4) Close the figure pop ups when ready to look at the net figure and continue with the program
+
+Notes:
+The console outputs are currently being outputed to the python terminal to allow webots to automatically close,
+if you want to outputs to be shown on webots, swap to the other subprocess in phaseD_driver.py on line 51.
+If you choose to do this, webots and the python program will no longer automatically close.
+
+If you want to test with another world, make sure to set the controller in the new world before running the python script.

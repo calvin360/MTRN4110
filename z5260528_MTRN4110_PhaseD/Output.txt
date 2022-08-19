@@ -1,0 +1,103 @@
+[RoboBot] Reading in map from ../../Map.txt...
+[RoboBot]  --- --- --- --- --- --- --- --- --- 
+[RoboBot] | v             |                   |
+[RoboBot]      ---                 ---         
+[RoboBot] |           |           |   |       |
+[RoboBot]  ---             --- ---     ---     
+[RoboBot] |       |   |   | x                 |
+[RoboBot]          ---     --- --- ---         
+[RoboBot] |   |                   |           |
+[RoboBot]          ---         ---     ---     
+[RoboBot] |   |           |           |       |
+[RoboBot]  --- --- --- --- --- --- --- --- --- 
+[RoboBot] Map read in!
+[RoboBot] Finding shortest paths...
+[RoboBot] Path - 1:
+[RoboBot]  --- --- --- --- --- --- --- --- --- 
+[RoboBot] | v   15  14  13| 10  9   8   7   6 |
+[RoboBot]      ---                 ---         
+[RoboBot] |           | 12  11    |   |     5 |
+[RoboBot]  ---             --- ---     ---     
+[RoboBot] |       |   |   | 0   1   2   3   4 |
+[RoboBot]          ---     --- --- ---         
+[RoboBot] |   |                   |           |
+[RoboBot]          ---         ---     ---     
+[RoboBot] |   |           |           |       |
+[RoboBot]  --- --- --- --- --- --- --- --- --- 
+[RoboBot] Path - 2:
+[RoboBot]  --- --- --- --- --- --- --- --- --- 
+[RoboBot] | v   15  14  13|     9   8   7   6 |
+[RoboBot]      ---                 ---         
+[RoboBot] |           | 12  11  10|   |     5 |
+[RoboBot]  ---             --- ---     ---     
+[RoboBot] |       |   |   | 0   1   2   3   4 |
+[RoboBot]          ---     --- --- ---         
+[RoboBot] |   |                   |           |
+[RoboBot]          ---         ---     ---     
+[RoboBot] |   |           |           |       |
+[RoboBot]  --- --- --- --- --- --- --- --- --- 
+[RoboBot] Path - 3:
+[RoboBot]  --- --- --- --- --- --- --- --- --- 
+[RoboBot] | v   15  14  13| 10  9   8   7     |
+[RoboBot]      ---                 ---         
+[RoboBot] |           | 12  11    |   | 6   5 |
+[RoboBot]  ---             --- ---     ---     
+[RoboBot] |       |   |   | 0   1   2   3   4 |
+[RoboBot]          ---     --- --- ---         
+[RoboBot] |   |                   |           |
+[RoboBot]          ---         ---     ---     
+[RoboBot] |   |           |           |       |
+[RoboBot]  --- --- --- --- --- --- --- --- --- 
+[RoboBot] Path - 4:
+[RoboBot]  --- --- --- --- --- --- --- --- --- 
+[RoboBot] | v   15  14  13|     9   8   7     |
+[RoboBot]      ---                 ---         
+[RoboBot] |           | 12  11  10|   | 6   5 |
+[RoboBot]  ---             --- ---     ---     
+[RoboBot] |       |   |   | 0   1   2   3   4 |
+[RoboBot]          ---     --- --- ---         
+[RoboBot] |   |                   |           |
+[RoboBot]          ---         ---     ---     
+[RoboBot] |   |           |           |       |
+[RoboBot]  --- --- --- --- --- --- --- --- --- 
+[RoboBot] Path - 5:
+[RoboBot]  --- --- --- --- --- --- --- --- --- 
+[RoboBot] | v   15  14  13|                   |
+[RoboBot]      ---                 ---         
+[RoboBot] |           | 12        |   |       |
+[RoboBot]  ---             --- ---     ---     
+[RoboBot] |       |   | 11| 0   1   2   3     |
+[RoboBot]          ---     --- --- ---         
+[RoboBot] |   |         10  9     | 5   4     |
+[RoboBot]          ---         ---     ---     
+[RoboBot] |   |           | 8   7   6 |       |
+[RoboBot]  --- --- --- --- --- --- --- --- --- 
+[RoboBot] Path - 6:
+[RoboBot]  --- --- --- --- --- --- --- --- --- 
+[RoboBot] | v             |                   |
+[RoboBot]      ---                 ---         
+[RoboBot] | 15  14    |           |   |       |
+[RoboBot]  ---             --- ---     ---     
+[RoboBot] |     13|   |   | 0   1   2   3     |
+[RoboBot]          ---     --- --- ---         
+[RoboBot] |   | 12  11  10  9     | 5   4     |
+[RoboBot]          ---         ---     ---     
+[RoboBot] |   |           | 8   7   6 |       |
+[RoboBot]  --- --- --- --- --- --- --- --- --- 
+[RoboBot] 6 shortest paths found!
+[RoboBot] Finding shortest path with least turns...
+[RoboBot]  --- --- --- --- --- --- --- --- --- 
+[RoboBot] | v   15  14  13| 10  9   8   7   6 |
+[RoboBot]      ---                 ---         
+[RoboBot] |           | 12  11    |   |     5 |
+[RoboBot]  ---             --- ---     ---     
+[RoboBot] |       |   |   | 0   1   2   3   4 |
+[RoboBot]          ---     --- --- ---         
+[RoboBot] |   |                   |           |
+[RoboBot]          ---         ---     ---     
+[RoboBot] |   |           |           |       |
+[RoboBot]  --- --- --- --- --- --- --- --- --- 
+[RoboBot] Shortest path with least turns found!
+[RoboBot] Path Plan (23 steps): 00SLFFFRFLFLFRFFFFRFFRFFFF
+[RoboBot] Writing path plan to ../../PathPlan.txt...
+[RoboBot] Path plan written to ../../PathPlan.txt!
