@@ -75,7 +75,7 @@ def detect_corners(imgRGB):
     mask = cv2.inRange(imgHSV, lower, upper)
     kernel = np.ones((10,10), np.uint8)
     opening = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
-    contours_cyan,_ = cv2.findContours(opening, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours_cyan,_ = cv2.findContours(opening, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2:]
     
     contour_filtered_cyan = []
     for _,c in enumerate(contours_cyan):
@@ -89,7 +89,7 @@ def detect_corners(imgRGB):
     mask = cv2.inRange(imgHSV, lower, upper)
     opening = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
    
-    contours_magenta,_ = cv2.findContours(opening, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours_magenta,_ = cv2.findContours(opening, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2:]
     
     contour_filtered_mag = []
     for _,c in enumerate(contours_magenta):
@@ -214,7 +214,7 @@ def wall_detection(transform):
 
     kernel = np.ones((3,3), np.uint8)
     opening = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
-    contours,_ = cv2.findContours(opening, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours,_ = cv2.findContours(opening, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2:]
     
     contour = []
     for _,c in enumerate(contours):
@@ -256,7 +256,7 @@ def robot_detector(maze):
 
     kernel = np.ones((5,5), np.uint8)
     opening = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
-    contours,_ = cv2.findContours(opening, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours,_ = cv2.findContours(opening, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2:]
     
     contour = []
     for _,c in enumerate(contours):
@@ -444,7 +444,7 @@ def target_detection_2(maze,direction):
 
     kernel = np.ones((7,7),np.uint8)
     closing = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
-    contours,_ = cv2.findContours(closing, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours,_ = cv2.findContours(closing, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2:]
                                
     if (cv2.contourArea(contours[0]) < cv2.contourArea(contours[1])):
         centre = get_corner_pos(contours[0])

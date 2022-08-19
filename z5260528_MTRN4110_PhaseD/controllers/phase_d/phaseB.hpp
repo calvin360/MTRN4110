@@ -39,6 +39,12 @@ const std::string OUTPUT_FILE_NAME = "../../Output.txt";
  * Available at https://www.geeksforgeeks.org/print-all-shortest-paths-between-given-source-and-destination-in-an-undirected-graph/
  ***************************************************************************************************/
 
+/**
+Finds all shortest paths recursively
+@param digit the single digit to encode.
+@return a bar code of the digit using "|" as the long bar
+and "," as the half bar.
+*/
 void find_paths(std::vector<std::vector<int>> &paths,
                 std::vector<int> &path,
                 std::vector<int> parent[],
