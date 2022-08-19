@@ -9,3 +9,5 @@ if you want to outputs to be shown on webots, swap to the other subprocess in ph
 If you choose to do this, webots and the python program will no longer automatically close.
 
 If you want to test with another world, make sure to set the controller in the new world before running the python script.
+
+Phase D has only been tested on Windows and should only be ran on windows machine to prevent any potential issues.
